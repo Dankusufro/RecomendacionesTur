@@ -1,0 +1,145 @@
+CREATE 
+// Lugares en Grecia
+(partenon:LugarTuristico {
+    nombre: "Partenón",
+    categoria: "Historico",
+    accesible: true,
+    promedio_general: 4.5,
+    ciudad: "Atenas",
+    pais: "Grecia"
+}),
+
+(santorini:LugarTuristico {
+    nombre: "Santorini",
+    categoria: "Naturaleza",
+    accesible: true,
+    promedio_general: 4.8,
+    ciudad: "Santorini",
+    pais: "Grecia"
+}),
+
+// Lugares en India
+(taj_mahal:LugarTuristico {
+    nombre: "Taj Mahal",
+    categoria: "Arquitectura",
+    accesible: true,
+    promedio_general: 4.7,
+    ciudad: "Agra",
+    pais: "India"
+}),
+
+(fuerte_rojo:LugarTuristico {
+    nombre: "Fuerte Rojo",
+    categoria: "Historico",
+    accesible: true,
+    promedio_general: 4.2,
+    ciudad: "Agra",
+    pais: "India"
+}),
+
+// Lugares en Australia
+(opera_house:LugarTuristico {
+    nombre: "Ópera de Sídney",
+    categoria: "Arquitectura",
+    accesible: true,
+    promedio_general: 4.6,
+    ciudad: "Sídney",
+    pais: "Australia"
+}),
+
+(harbour_bridge:LugarTuristico {
+    nombre: "Puente del Puerto de Sídney",
+    categoria: "Arquitectura",
+    accesible: true,
+    promedio_general: 4.4,
+    ciudad: "Sídney",
+    pais: "Australia"
+}),
+
+// Lugares en Alemania
+(puerta_brandemburgo:LugarTuristico {
+    nombre: "Puerta de Brandemburgo",
+    categoria: "Historico",
+    accesible: true,
+    promedio_general: 4.3,
+    ciudad: "Berlín",
+    pais: "Alemania"
+}),
+
+(castillo_neuschwanstein:LugarTuristico {
+    nombre: "Castillo de Neuschwanstein",
+    categoria: "Arquitectura",
+    accesible: true,
+    promedio_general: 4.5,
+    ciudad: "Baviera",
+    pais: "Alemania"
+}),
+
+// Lugares en Canadá
+(cataratas_niagara:LugarTuristico {
+    nombre: "Cataratas del Niágara",
+    categoria: "Naturaleza",
+    accesible: true,
+    promedio_general: 4.4,
+    ciudad: "Ontario",
+    pais: "Canadá"
+}),
+
+// Lugar en Rusia
+(plaza_roja:LugarTuristico {
+    nombre: "Plaza Roja",
+    categoria: "Cultural",
+    accesible: true,
+    promedio_general: 4.6,
+    ciudad: "Moscú",
+    pais: "Rusia"
+});
+
+
+// PARTE 2: Crear relaciones con categorías para los nuevos lugares
+MATCH (l:LugarTuristico), (c:Categoria)
+WHERE l.categoria = c.nombre 
+AND l.nombre IN ["Partenón", "Santorini", "Taj Mahal", "Fuerte Rojo", "Ópera de Sídney", 
+                 "Puente del Puerto de Sídney", "Puerta de Brandemburgo", "Castillo de Neuschwanstein", 
+                 "Cataratas del Niágara", "Plaza Roja"]
+CREATE (l)-[:PERTENECE_A]->(c);
+
+// PARTE 3: Crear relaciones CERCA_DE para los nuevos lugares
+
+// India - lugares cercanos (Agra)
+MATCH (taj_mahal:LugarTuristico {nombre: "Taj Mahal"}), 
+      (fuerte_rojo:LugarTuristico {nombre: "Fuerte Rojo"})
+CREATE (taj_mahal)-[:CERCA_DE {distancia_km: 2.5}]->(fuerte_rojo),
+       (fuerte_rojo)-[:CERCA_DE {distancia_km: 2.5}]->(taj_mahal);
+
+// Australia - lugares cercanos (Sídney)
+MATCH (opera_house:LugarTuristico {nombre: "Ópera de Sídney"}), 
+      (harbour_bridge:LugarTuristico {nombre: "Puente del Puerto de Sídney"})
+CREATE (opera_house)-[:CERCA_DE {distancia_km: 1.0}]->(harbour_bridge),
+       (harbour_bridge)-[:CERCA_DE {distancia_km: 1.0}]->(opera_house);
+
+// Algunas relaciones adicionales entre lugares existentes y nuevos
+
+// Nueva York - Cataratas del Niágara (relativamente cerca en América del Norte)
+MATCH (empire_state:LugarTuristico {nombre: "Empire State Building"}), 
+      (cataratas_niagara:LugarTuristico {nombre: "Cataratas del Niágara"})
+CREATE (empire_state)-[:CERCA_DE {distancia_km: 460}]->(cataratas_niagara),
+       (cataratas_niagara)-[:CERCA_DE {distancia_km: 460}]->(empire_state);
+
+// París - Puerta de Brandemburgo (Europa cercana)
+MATCH (torre_eiffel:LugarTuristico {nombre: "Torre Eiffel"}), 
+      (puerta_brandemburgo:LugarTuristico {nombre: "Puerta de Brandemburgo"})
+CREATE (torre_eiffel)-[:CERCA_DE {distancia_km: 880}]->(puerta_brandemburgo),
+       (puerta_brandemburgo)-[:CERCA_DE {distancia_km: 880}]->(torre_eiffel);
+
+// Londres - Puerta de Brandemburgo (Europa)
+MATCH (big_ben:LugarTuristico {nombre: "Big Ben"}), 
+      (puerta_brandemburgo:LugarTuristico {nombre: "Puerta de Brandemburgo"})
+CREATE (big_ben)-[:CERCA_DE {distancia_km: 930}]->(puerta_brandemburgo),
+       (puerta_brandemburgo)-[:CERCA_DE {distancia_km: 930}]->(big_ben);
+
+// Roma - Partenón (Mediterráneo)
+MATCH (coliseo:LugarTuristico {nombre: "Coliseo Romano"}), 
+      (partenon:LugarTuristico {nombre: "Partenón"})
+CREATE (coliseo)-[:CERCA_DE {distancia_km: 680}]->(partenon),
+       (partenon)-[:CERCA_DE {distancia_km: 680}]->(coliseo);

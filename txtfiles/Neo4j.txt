@@ -1,0 +1,390 @@
+// PARTE 1: Crear nodos de Categoría
+CREATE (arte:Categoria {nombre: "Arte"}),
+       (historico:Categoria {nombre: "Historico"}),
+       (deporte:Categoria {nombre: "Deporte"}),
+       (arquitectura:Categoria {nombre: "Arquitectura"}),
+       (cultural:Categoria {nombre: "Cultural"}),
+       (naturaleza:Categoria {nombre: "Naturaleza"});
+
+// PARTE 2: Crear todos los lugares turísticos
+CREATE 
+// Lugares turísticos en Nueva York
+(msg:LugarTuristico {
+    nombre: "Madison Square Garden",
+    categoria: "Deporte",
+    accesible: true,
+    promedio_general: 4.2,
+    ciudad: "Nueva York",
+    pais: "Estados Unidos"
+}),
+
+(estatua_libertad:LugarTuristico {
+    nombre: "Estatua de la Libertad",
+    categoria: "Historico",
+    accesible: true,
+    promedio_general: 4.5,
+    ciudad: "Nueva York",
+    pais: "Estados Unidos"
+}),
+
+(empire_state:LugarTuristico {
+    nombre: "Empire State Building",
+    categoria: "Arquitectura",
+    accesible: true,
+    promedio_general: 4.4,
+    ciudad: "Nueva York",
+    pais: "Estados Unidos"
+}),
+
+(central_park:LugarTuristico {
+    nombre: "Central Park",
+    categoria: "Naturaleza",
+    accesible: true,
+    promedio_general: 4.6,
+    ciudad: "Nueva York",
+    pais: "Estados Unidos"
+}),
+
+(moma:LugarTuristico {
+    nombre: "MoMA",
+    categoria: "Arte",
+    accesible: true,
+    promedio_general: 4.3,
+    ciudad: "Nueva York",
+    pais: "Estados Unidos"
+}),
+
+// Lugares turísticos en París
+(torre_eiffel:LugarTuristico {
+    nombre: "Torre Eiffel",
+    categoria: "Arquitectura",
+    accesible: true,
+    promedio_general: 4.7,
+    ciudad: "París",
+    pais: "Francia"
+}),
+
+(louvre:LugarTuristico {
+    nombre: "Museo del Louvre",
+    categoria: "Arte",
+    accesible: true,
+    promedio_general: 4.5,
+    ciudad: "París",
+    pais: "Francia"
+}),
+
+(notre_dame:LugarTuristico {
+    nombre: "Catedral de Notre Dame",
+    categoria: "Historico",
+    accesible: false,
+    promedio_general: 4.4,
+    ciudad: "París",
+    pais: "Francia"
+}),
+
+(arco_triunfo:LugarTuristico {
+    nombre: "Arco del Triunfo",
+    categoria: "Historico",
+    accesible: true,
+    promedio_general: 4.3,
+    ciudad: "París",
+    pais: "Francia"
+}),
+
+// Lugares turísticos en Londres
+(big_ben:LugarTuristico {
+    nombre: "Big Ben",
+    categoria: "Arquitectura",
+    accesible: false,
+    promedio_general: 4.4,
+    ciudad: "Londres",
+    pais: "Reino Unido"
+}),
+
+(tower_bridge:LugarTuristico {
+    nombre: "Tower Bridge",
+    categoria: "Arquitectura",
+    accesible: true,
+    promedio_general: 4.3,
+    ciudad: "Londres",
+    pais: "Reino Unido"
+}),
+
+(british_museum:LugarTuristico {
+    nombre: "Museo Británico",
+    categoria: "Cultural",
+    accesible: true,
+    promedio_general: 4.5,
+    ciudad: "Londres",
+    pais: "Reino Unido"
+}),
+
+// Lugares turísticos en Roma
+(coliseo:LugarTuristico {
+    nombre: "Coliseo Romano",
+    categoria: "Historico",
+    accesible: true,
+    promedio_general: 4.6,
+    ciudad: "Roma",
+    pais: "Italia"
+}),
+
+(vaticano:LugarTuristico {
+    nombre: "Ciudad del Vaticano",
+    categoria: "Cultural",
+    accesible: true,
+    promedio_general: 4.7,
+    ciudad: "Roma",
+    pais: "Italia"
+}),
+
+(fontana_trevi:LugarTuristico {
+    nombre: "Fontana di Trevi",
+    categoria: "Arte",
+    accesible: true,
+    promedio_general: 4.4,
+    ciudad: "Roma",
+    pais: "Italia"
+}),
+
+// Lugares turísticos en Perú
+(machu_picchu:LugarTuristico {
+    nombre: "Machu Picchu",
+    categoria: "Historico",
+    accesible: false,
+    promedio_general: 4.8,
+    ciudad: "Cusco",
+    pais: "Perú"
+}),
+
+(sacsayhuaman:LugarTuristico {
+    nombre: "Sacsayhuamán",
+    categoria: "Historico",
+    accesible: true,
+    promedio_general: 4.3,
+    ciudad: "Cusco",
+    pais: "Perú"
+}),
+
+// Lugares turísticos en China
+(muralla_china:LugarTuristico {
+    nombre: "Gran Muralla China",
+    categoria: "Historico",
+    accesible: true,
+    promedio_general: 4.6,
+    ciudad: "Pekín",
+    pais: "China"
+}),
+
+(ciudad_prohibida:LugarTuristico {
+    nombre: "Ciudad Prohibida",
+    categoria: "Cultural",
+    accesible: true,
+    promedio_general: 4.5,
+    ciudad: "Pekín",
+    pais: "China"
+}),
+
+// Lugares turísticos en España
+(sagrada_familia:LugarTuristico {
+    nombre: "Sagrada Familia",
+    categoria: "Arquitectura",
+    accesible: true,
+    promedio_general: 4.6,
+    ciudad: "Barcelona",
+    pais: "España"
+}),
+
+(park_guell:LugarTuristico {
+    nombre: "Park Güell",
+    categoria: "Arte",
+    accesible: true,
+    promedio_general: 4.4,
+    ciudad: "Barcelona",
+    pais: "España"
+}),
+
+(alhambra:LugarTuristico {
+    nombre: "La Alhambra",
+    categoria: "Historico",
+    accesible: true,
+    promedio_general: 4.7,
+    ciudad: "Granada",
+    pais: "España"
+}),
+
+// Lugares turísticos en Estados Unidos (otros)
+(grand_canyon:LugarTuristico {
+    nombre: "Gran Cañón",
+    categoria: "Naturaleza",
+    accesible: true,
+    promedio_general: 4.8,
+    ciudad: "Arizona",
+    pais: "Estados Unidos"
+}),
+
+(monte_rushmore:LugarTuristico {
+    nombre: "Monte Rushmore",
+    categoria: "Arte",
+    accesible: true,
+    promedio_general: 4.2,
+    ciudad: "Dakota del Sur",
+    pais: "Estados Unidos"
+}),
+
+// Lugares turísticos en Brasil
+(cristo_redentor:LugarTuristico {
+    nombre: "Cristo Redentor",
+    categoria: "Cultural",
+    accesible: true,
+    promedio_general: 4.5,
+    ciudad: "Río de Janeiro",
+    pais: "Brasil"
+}),
+
+(pan_azucar:LugarTuristico {
+    nombre: "Pan de Azúcar",
+    categoria: "Naturaleza",
+    accesible: true,
+    promedio_general: 4.4,
+    ciudad: "Río de Janeiro",
+    pais: "Brasil"
+}),
+
+(copacabana:LugarTuristico {
+    nombre: "Playa de Copacabana",
+    categoria: "Naturaleza",
+    accesible: true,
+    promedio_general: 4.3,
+    ciudad: "Río de Janeiro",
+    pais: "Brasil"
+}),
+
+// Lugares turísticos en Egipto
+(piramides_giza:LugarTuristico {
+    nombre: "Pirámides de Giza",
+    categoria: "Historico",
+    accesible: true,
+    promedio_general: 4.5,
+    ciudad: "El Cairo",
+    pais: "Egipto"
+}),
+
+(esfinge:LugarTuristico {
+    nombre: "La Esfinge",
+    categoria: "Historico",
+    accesible: true,
+    promedio_general: 4.3,
+    ciudad: "El Cairo",
+    pais: "Egipto"
+}),
+
+// Lugares turísticos en Japón
+(monte_fuji:LugarTuristico {
+    nombre: "Monte Fuji",
+    categoria: "Naturaleza",
+    accesible: false,
+    promedio_general: 4.7,
+    ciudad: "Honshu",
+    pais: "Japón"
+});
+
+// PARTE 3: Crear relaciones con categorías
+MATCH (l:LugarTuristico), (c:Categoria)
+WHERE l.categoria = c.nombre
+CREATE (l)-[:PERTENECE_A]->(c);
+
+// PARTE 4: Crear relaciones CERCA_DE
+// Nueva York - lugares cercanos
+MATCH (msg:LugarTuristico {nombre: "Madison Square Garden"}), 
+      (empire_state:LugarTuristico {nombre: "Empire State Building"})
+CREATE (msg)-[:CERCA_DE {distancia_km: 1.2}]->(empire_state),
+       (empire_state)-[:CERCA_DE {distancia_km: 1.2}]->(msg);
+
+MATCH (empire_state:LugarTuristico {nombre: "Empire State Building"}), 
+      (central_park:LugarTuristico {nombre: "Central Park"})
+CREATE (empire_state)-[:CERCA_DE {distancia_km: 2.1}]->(central_park),
+       (central_park)-[:CERCA_DE {distancia_km: 2.1}]->(empire_state);
+
+MATCH (central_park:LugarTuristico {nombre: "Central Park"}), 
+      (moma:LugarTuristico {nombre: "MoMA"})
+CREATE (central_park)-[:CERCA_DE {distancia_km: 0.8}]->(moma),
+       (moma)-[:CERCA_DE {distancia_km: 0.8}]->(central_park);
+
+// París - lugares cercanos
+MATCH (louvre:LugarTuristico {nombre: "Museo del Louvre"}), 
+      (arco_triunfo:LugarTuristico {nombre: "Arco del Triunfo"})
+CREATE (louvre)-[:CERCA_DE {distancia_km: 2.3}]->(arco_triunfo),
+       (arco_triunfo)-[:CERCA_DE {distancia_km: 2.3}]->(louvre);
+
+MATCH (torre_eiffel:LugarTuristico {nombre: "Torre Eiffel"}), 
+      (arco_triunfo:LugarTuristico {nombre: "Arco del Triunfo"})
+CREATE (torre_eiffel)-[:CERCA_DE {distancia_km: 2.8}]->(arco_triunfo),
+       (arco_triunfo)-[:CERCA_DE {distancia_km: 2.8}]->(torre_eiffel);
+
+MATCH (notre_dame:LugarTuristico {nombre: "Catedral de Notre Dame"}), 
+      (louvre:LugarTuristico {nombre: "Museo del Louvre"})
+CREATE (notre_dame)-[:CERCA_DE {distancia_km: 1.5}]->(louvre),
+       (louvre)-[:CERCA_DE {distancia_km: 1.5}]->(notre_dame);
+
+// Londres - lugares cercanos
+MATCH (big_ben:LugarTuristico {nombre: "Big Ben"}), 
+      (tower_bridge:LugarTuristico {nombre: "Tower Bridge"})
+CREATE (big_ben)-[:CERCA_DE {distancia_km: 3.2}]->(tower_bridge),
+       (tower_bridge)-[:CERCA_DE {distancia_km: 3.2}]->(big_ben);
+
+MATCH (british_museum:LugarTuristico {nombre: "Museo Británico"}), 
+      (big_ben:LugarTuristico {nombre: "Big Ben"})
+CREATE (british_museum)-[:CERCA_DE {distancia_km: 2.5}]->(big_ben),
+       (big_ben)-[:CERCA_DE {distancia_km: 2.5}]->(british_museum);
+
+// Roma - lugares cercanos
+MATCH (coliseo:LugarTuristico {nombre: "Coliseo Romano"}), 
+      (fontana_trevi:LugarTuristico {nombre: "Fontana di Trevi"})
+CREATE (coliseo)-[:CERCA_DE {distancia_km: 1.8}]->(fontana_trevi),
+       (fontana_trevi)-[:CERCA_DE {distancia_km: 1.8}]->(coliseo);
+
+MATCH (vaticano:LugarTuristico {nombre: "Ciudad del Vaticano"}), 
+      (fontana_trevi:LugarTuristico {nombre: "Fontana di Trevi"})
+CREATE (vaticano)-[:CERCA_DE {distancia_km: 3.5}]->(fontana_trevi),
+       (fontana_trevi)-[:CERCA_DE {distancia_km: 3.5}]->(vaticano);
+
+// Perú - lugares cercanos
+MATCH (machu_picchu:LugarTuristico {nombre: "Machu Picchu"}), 
+      (sacsayhuaman:LugarTuristico {nombre: "Sacsayhuamán"})
+CREATE (machu_picchu)-[:CERCA_DE {distancia_km: 75}]->(sacsayhuaman),
+       (sacsayhuaman)-[:CERCA_DE {distancia_km: 75}]->(machu_picchu);
+
+// China - lugares cercanos
+MATCH (muralla_china:LugarTuristico {nombre: "Gran Muralla China"}), 
+      (ciudad_prohibida:LugarTuristico {nombre: "Ciudad Prohibida"})
+CREATE (muralla_china)-[:CERCA_DE {distancia_km: 65}]->(ciudad_prohibida),
+       (ciudad_prohibida)-[:CERCA_DE {distancia_km: 65}]->(muralla_china);
+
+// España - lugares cercanos
+MATCH (sagrada_familia:LugarTuristico {nombre: "Sagrada Familia"}), 
+      (park_guell:LugarTuristico {nombre: "Park Güell"})
+CREATE (sagrada_familia)-[:CERCA_DE {distancia_km: 4.2}]->(park_guell),
+       (park_guell)-[:CERCA_DE {distancia_km: 4.2}]->(sagrada_familia);
+
+// Brasil - lugares cercanos (Río de Janeiro)
+MATCH (cristo_redentor:LugarTuristico {nombre: "Cristo Redentor"}), 
+      (pan_azucar:LugarTuristico {nombre: "Pan de Azúcar"})
+CREATE (cristo_redentor)-[:CERCA_DE {distancia_km: 8.5}]->(pan_azucar),
+       (pan_azucar)-[:CERCA_DE {distancia_km: 8.5}]->(cristo_redentor);
+
+MATCH (pan_azucar:LugarTuristico {nombre: "Pan de Azúcar"}), 
+      (copacabana:LugarTuristico {nombre: "Playa de Copacabana"})
+CREATE (pan_azucar)-[:CERCA_DE {distancia_km: 5.3}]->(copacabana),
+       (copacabana)-[:CERCA_DE {distancia_km: 5.3}]->(pan_azucar);
+
+MATCH (cristo_redentor:LugarTuristico {nombre: "Cristo Redentor"}), 
+      (copacabana:LugarTuristico {nombre: "Playa de Copacabana"})
+CREATE (cristo_redentor)-[:CERCA_DE {distancia_km: 6.8}]->(copacabana),
+       (copacabana)-[:CERCA_DE {distancia_km: 6.8}]->(cristo_redentor);
+
+// Egipto - lugares cercanos
+MATCH (piramides_giza:LugarTuristico {nombre: "Pirámides de Giza"}), 
+      (esfinge:LugarTuristico {nombre: "La Esfinge"})
+CREATE (piramides_giza)-[:CERCA_DE {distancia_km: 0.5}]->(esfinge),
+       (esfinge)-[:CERCA_DE {distancia_km: 0.5}]->(piramides_giza);

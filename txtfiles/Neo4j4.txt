@@ -1,0 +1,185 @@
+// PARTE 1: Crear lugares de naturaleza para conectar con los existentes
+CREATE 
+// Cerca del Gran Cañón (Arizona)
+(antelope_canyon:LugarTuristico {
+    nombre: "Antelope Canyon",
+    categoria: "Naturaleza",
+    accesible: false,
+    promedio_general: 4.7,
+    ciudad: "Arizona",
+    pais: "Estados Unidos"
+}),
+
+(horseshoe_bend:LugarTuristico {
+    nombre: "Horseshoe Bend",
+    categoria: "Naturaleza",
+    accesible: true,
+    promedio_general: 4.5,
+    ciudad: "Arizona",
+    pais: "Estados Unidos"
+}),
+
+// Cerca de Central Park (Nueva York)
+(high_line:LugarTuristico {
+    nombre: "High Line Park",
+    categoria: "Naturaleza",
+    accesible: true,
+    promedio_general: 4.3,
+    ciudad: "Nueva York",
+    pais: "Estados Unidos"
+}),
+
+(brooklyn_bridge_park:LugarTuristico {
+    nombre: "Brooklyn Bridge Park",
+    categoria: "Naturaleza",
+    accesible: true,
+    promedio_general: 4.4,
+    ciudad: "Nueva York",
+    pais: "Estados Unidos"
+}),
+
+// Cerca del Monte Fuji (Japón)
+(hakone:LugarTuristico {
+    nombre: "Hakone",
+    categoria: "Naturaleza",
+    accesible: true,
+    promedio_general: 4.5,
+    ciudad: "Honshu",
+    pais: "Japón"
+}),
+
+(lago_kawaguchi:LugarTuristico {
+    nombre: "Lago Kawaguchi",
+    categoria: "Naturaleza",
+    accesible: true,
+    promedio_general: 4.4,
+    ciudad: "Honshu",
+    pais: "Japón"
+}),
+
+// Cerca de Santorini (Grecia)
+(mykonos:LugarTuristico {
+    nombre: "Mykonos",
+    categoria: "Naturaleza",
+    accesible: true,
+    promedio_general: 4.6,
+    ciudad: "Mykonos",
+    pais: "Grecia"
+}),
+
+// Cerca del Valle Sagrado (Perú)
+(lago_titicaca:LugarTuristico {
+    nombre: "Lago Titicaca",
+    categoria: "Naturaleza",
+    accesible: true,
+    promedio_general: 4.3,
+    ciudad: "Puno",
+    pais: "Perú"
+}),
+
+// Cerca de Mehtab Bagh (India)
+(ganges_varanasi:LugarTuristico {
+    nombre: "Río Ganges en Varanasi",
+    categoria: "Naturaleza",
+    accesible: true,
+    promedio_general: 4.2,
+    ciudad: "Varanasi",
+    pais: "India"
+}),
+
+// Lugares adicionales para crear más conexiones
+(ipanema:LugarTuristico {
+    nombre: "Playa de Ipanema",
+    categoria: "Naturaleza",
+    accesible: true,
+    promedio_general: 4.5,
+    ciudad: "Río de Janeiro",
+    pais: "Brasil"
+});
+
+// PARTE 2: Crear relaciones con categorías para los nuevos lugares de naturaleza
+MATCH (l:LugarTuristico), (c:Categoria)
+WHERE l.categoria = c.nombre 
+AND l.nombre IN ["Antelope Canyon", "Horseshoe Bend", "High Line Park", "Brooklyn Bridge Park", 
+                 "Hakone", "Lago Kawaguchi", "Mykonos", "Lago Titicaca", 
+                 "Río Ganges en Varanasi", "Playa de Ipanema"]
+CREATE (l)-[:PERTENECE_A]->(c);
+
+// PARTE 3: Crear relaciones CERCA_DE entre lugares de naturaleza
+
+// Conexiones con Gran Cañón
+MATCH (grand_canyon:LugarTuristico {nombre: "Gran Cañón"}), 
+      (antelope_canyon:LugarTuristico {nombre: "Antelope Canyon"})
+CREATE (grand_canyon)-[:CERCA_DE {distancia_km: 240}]->(antelope_canyon),
+       (antelope_canyon)-[:CERCA_DE {distancia_km: 240}]->(grand_canyon);
+
+MATCH (grand_canyon:LugarTuristico {nombre: "Gran Cañón"}), 
+      (horseshoe_bend:LugarTuristico {nombre: "Horseshoe Bend"})
+CREATE (grand_canyon)-[:CERCA_DE {distancia_km: 220}]->(horseshoe_bend),
+       (horseshoe_bend)-[:CERCA_DE {distancia_km: 220}]->(grand_canyon);
+
+MATCH (antelope_canyon:LugarTuristico {nombre: "Antelope Canyon"}), 
+      (horseshoe_bend:LugarTuristico {nombre: "Horseshoe Bend"})
+CREATE (antelope_canyon)-[:CERCA_DE {distancia_km: 8}]->(horseshoe_bend),
+       (horseshoe_bend)-[:CERCA_DE {distancia_km: 8}]->(antelope_canyon);
+
+// Conexiones con Central Park
+MATCH (central_park:LugarTuristico {nombre: "Central Park"}), 
+      (high_line:LugarTuristico {nombre: "High Line Park"})
+CREATE (central_park)-[:CERCA_DE {distancia_km: 5.5}]->(high_line),
+       (high_line)-[:CERCA_DE {distancia_km: 5.5}]->(central_park);
+
+MATCH (central_park:LugarTuristico {nombre: "Central Park"}), 
+      (brooklyn_bridge_park:LugarTuristico {nombre: "Brooklyn Bridge Park"})
+CREATE (central_park)-[:CERCA_DE {distancia_km: 8.2}]->(brooklyn_bridge_park),
+       (brooklyn_bridge_park)-[:CERCA_DE {distancia_km: 8.2}]->(central_park);
+
+MATCH (high_line:LugarTuristico {nombre: "High Line Park"}), 
+      (brooklyn_bridge_park:LugarTuristico {nombre: "Brooklyn Bridge Park"})
+CREATE (high_line)-[:CERCA_DE {distancia_km: 3.5}]->(brooklyn_bridge_park),
+       (brooklyn_bridge_park)-[:CERCA_DE {distancia_km: 3.5}]->(high_line);
+
+// Conexiones con Monte Fuji
+MATCH (monte_fuji:LugarTuristico {nombre: "Monte Fuji"}), 
+      (hakone:LugarTuristico {nombre: "Hakone"})
+CREATE (monte_fuji)-[:CERCA_DE {distancia_km: 45}]->(hakone),
+       (hakone)-[:CERCA_DE {distancia_km: 45}]->(monte_fuji);
+
+MATCH (monte_fuji:LugarTuristico {nombre: "Monte Fuji"}), 
+      (lago_kawaguchi:LugarTuristico {nombre: "Lago Kawaguchi"})
+CREATE (monte_fuji)-[:CERCA_DE {distancia_km: 25}]->(lago_kawaguchi),
+       (lago_kawaguchi)-[:CERCA_DE {distancia_km: 25}]->(monte_fuji);
+
+MATCH (hakone:LugarTuristico {nombre: "Hakone"}), 
+      (lago_kawaguchi:LugarTuristico {nombre: "Lago Kawaguchi"})
+CREATE (hakone)-[:CERCA_DE {distancia_km: 35}]->(lago_kawaguchi),
+       (lago_kawaguchi)-[:CERCA_DE {distancia_km: 35}]->(hakone);
+
+// Conexiones con Santorini
+MATCH (santorini:LugarTuristico {nombre: "Santorini"}), 
+      (mykonos:LugarTuristico {nombre: "Mykonos"})
+CREATE (santorini)-[:CERCA_DE {distancia_km: 140}]->(mykonos),
+       (mykonos)-[:CERCA_DE {distancia_km: 140}]->(santorini);
+
+// Conexiones con Valle Sagrado
+MATCH (valle_sagrado:LugarTuristico {nombre: "Valle Sagrado"}), 
+      (lago_titicaca:LugarTuristico {nombre: "Lago Titicaca"})
+CREATE (valle_sagrado)-[:CERCA_DE {distancia_km: 320}]->(lago_titicaca),
+       (lago_titicaca)-[:CERCA_DE {distancia_km: 320}]->(valle_sagrado);
+
+// Nuevas conexiones en Brasil (Río de Janeiro)
+MATCH (pan_azucar:LugarTuristico {nombre: "Pan de Azúcar"}), 
+      (ipanema:LugarTuristico {nombre: "Playa de Ipanema"})
+CREATE (pan_azucar)-[:CERCA_DE {distancia_km: 7.5}]->(ipanema),
+       (ipanema)-[:CERCA_DE {distancia_km: 7.5}]->(pan_azucar);
+
+MATCH (copacabana:LugarTuristico {nombre: "Playa de Copacabana"}), 
+      (ipanema:LugarTuristico {nombre: "Playa de Ipanema"})
+CREATE (copacabana)-[:CERCA_DE {distancia_km: 2.5}]->(ipanema),
+       (ipanema)-[:CERCA_DE {distancia_km: 2.5}]->(copacabana);
+
+// Conexión intercontinental: Nueva York con otros lugares naturales de Estados Unidos
+MATCH (central_park:LugarTuristico {nombre: "Central Park"}), 
+      (grand_canyon:LugarTuristico {nombre: "Gran Cañón"})
+CREATE (central_park)-[:CERCA_DE {distancia_km: 3500}]->(grand_canyon),
+       (grand_canyon)-[:CERCA_DE {distancia_km: 3500}]->(central_park);

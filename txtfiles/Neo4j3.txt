@@ -1,0 +1,217 @@
+// PARTE 1: Crear lugares adicionales para relacionar con los 5 lugares emblemáticos
+CREATE 
+// Lugares cerca de la Gran Muralla China (Beijing)
+(templo_cielo:LugarTuristico {
+    nombre: "Templo del Cielo",
+    categoria: "Cultural",
+    accesible: true,
+    promedio_general: 4.4,
+    ciudad: "Pekín",
+    pais: "China"
+}),
+
+(palacio_verano:LugarTuristico {
+    nombre: "Palacio de Verano",
+    categoria: "Arquitectura",
+    accesible: true,
+    promedio_general: 4.3,
+    ciudad: "Pekín",
+    pais: "China"
+}),
+
+// Lugares cerca de Machu Picchu (Cusco)
+(valle_sagrado:LugarTuristico {
+    nombre: "Valle Sagrado",
+    categoria: "Naturaleza",
+    accesible: true,
+    promedio_general: 4.5,
+    ciudad: "Cusco",
+    pais: "Perú"
+}),
+
+(ollantaytambo:LugarTuristico {
+    nombre: "Ollantaytambo",
+    categoria: "Historico",
+    accesible: true,
+    promedio_general: 4.2,
+    ciudad: "Cusco",
+    pais: "Perú"
+}),
+
+// Lugares cerca del Coliseo (Roma)
+(foro_romano:LugarTuristico {
+    nombre: "Foro Romano",
+    categoria: "Historico",
+    accesible: true,
+    promedio_general: 4.4,
+    ciudad: "Roma",
+    pais: "Italia"
+}),
+
+(palatino:LugarTuristico {
+    nombre: "Monte Palatino",
+    categoria: "Historico",
+    accesible: true,
+    promedio_general: 4.2,
+    ciudad: "Roma",
+    pais: "Italia"
+}),
+
+// Lugares cerca del Taj Mahal (Agra)
+(mehtab_bagh:LugarTuristico {
+    nombre: "Mehtab Bagh",
+    categoria: "Naturaleza",
+    accesible: true,
+    promedio_general: 4.0,
+    ciudad: "Agra",
+    pais: "India"
+}),
+
+(tumba_itimad:LugarTuristico {
+    nombre: "Tumba de Itimad-ud-Daulah",
+    categoria: "Arquitectura",
+    accesible: true,
+    promedio_general: 4.1,
+    ciudad: "Agra",
+    pais: "India"
+}),
+
+// Lugares cerca de la Torre Eiffel (París)
+(invalidos:LugarTuristico {
+    nombre: "Los Inválidos",
+    categoria: "Historico",
+    accesible: true,
+    promedio_general: 4.3,
+    ciudad: "París",
+    pais: "Francia"
+}),
+
+(museo_orsay:LugarTuristico {
+    nombre: "Museo de Orsay",
+    categoria: "Arte",
+    accesible: true,
+    promedio_general: 4.5,
+    ciudad: "París",
+    pais: "Francia"
+});
+
+// PARTE 2: Crear relaciones con categorías para los nuevos lugares
+MATCH (l:LugarTuristico), (c:Categoria)
+WHERE l.categoria = c.nombre 
+AND l.nombre IN ["Templo del Cielo", "Palacio de Verano", "Valle Sagrado", "Ollantaytambo", 
+                 "Foro Romano", "Monte Palatino", "Mehtab Bagh", "Tumba de Itimad-ud-Daulah", 
+                 "Los Inválidos", "Museo de Orsay"]
+CREATE (l)-[:PERTENECE_A]->(c);
+
+// PARTE 3: Crear relaciones CERCA_DE con los 5 lugares emblemáticos
+
+// Relaciones con Gran Muralla China
+MATCH (muralla_china:LugarTuristico {nombre: "Gran Muralla China"}), 
+      (templo_cielo:LugarTuristico {nombre: "Templo del Cielo"})
+CREATE (muralla_china)-[:CERCA_DE {distancia_km: 45}]->(templo_cielo),
+       (templo_cielo)-[:CERCA_DE {distancia_km: 45}]->(muralla_china);
+
+MATCH (muralla_china:LugarTuristico {nombre: "Gran Muralla China"}), 
+      (palacio_verano:LugarTuristico {nombre: "Palacio de Verano"})
+CREATE (muralla_china)-[:CERCA_DE {distancia_km: 35}]->(palacio_verano),
+       (palacio_verano)-[:CERCA_DE {distancia_km: 35}]->(muralla_china);
+
+// Conectar Templo del Cielo con Ciudad Prohibida (ya existente)
+MATCH (templo_cielo:LugarTuristico {nombre: "Templo del Cielo"}), 
+      (ciudad_prohibida:LugarTuristico {nombre: "Ciudad Prohibida"})
+CREATE (templo_cielo)-[:CERCA_DE {distancia_km: 8}]->(ciudad_prohibida),
+       (ciudad_prohibida)-[:CERCA_DE {distancia_km: 8}]->(templo_cielo);
+
+// Relaciones con Machu Picchu
+MATCH (machu_picchu:LugarTuristico {nombre: "Machu Picchu"}), 
+      (valle_sagrado:LugarTuristico {nombre: "Valle Sagrado"})
+CREATE (machu_picchu)-[:CERCA_DE {distancia_km: 25}]->(valle_sagrado),
+       (valle_sagrado)-[:CERCA_DE {distancia_km: 25}]->(machu_picchu);
+
+MATCH (machu_picchu:LugarTuristico {nombre: "Machu Picchu"}), 
+      (ollantaytambo:LugarTuristico {nombre: "Ollantaytambo"})
+CREATE (machu_picchu)-[:CERCA_DE {distancia_km: 18}]->(ollantaytambo),
+       (ollantaytambo)-[:CERCA_DE {distancia_km: 18}]->(machu_picchu);
+
+// Conectar Valle Sagrado con Sacsayhuamán (ya existente)
+MATCH (valle_sagrado:LugarTuristico {nombre: "Valle Sagrado"}), 
+      (sacsayhuaman:LugarTuristico {nombre: "Sacsayhuamán"})
+CREATE (valle_sagrado)-[:CERCA_DE {distancia_km: 35}]->(sacsayhuaman),
+       (sacsayhuaman)-[:CERCA_DE {distancia_km: 35}]->(valle_sagrado);
+
+// Relaciones con Coliseo Romano
+MATCH (coliseo:LugarTuristico {nombre: "Coliseo Romano"}), 
+      (foro_romano:LugarTuristico {nombre: "Foro Romano"})
+CREATE (coliseo)-[:CERCA_DE {distancia_km: 0.4}]->(foro_romano),
+       (foro_romano)-[:CERCA_DE {distancia_km: 0.4}]->(coliseo);
+
+MATCH (coliseo:LugarTuristico {nombre: "Coliseo Romano"}), 
+      (palatino:LugarTuristico {nombre: "Monte Palatino"})
+CREATE (coliseo)-[:CERCA_DE {distancia_km: 0.6}]->(palatino),
+       (palatino)-[:CERCA_DE {distancia_km: 0.6}]->(coliseo);
+
+// Conectar Foro Romano con Fontana di Trevi (ya existente)
+MATCH (foro_romano:LugarTuristico {nombre: "Foro Romano"}), 
+      (fontana_trevi:LugarTuristico {nombre: "Fontana di Trevi"})
+CREATE (foro_romano)-[:CERCA_DE {distancia_km: 1.2}]->(fontana_trevi),
+       (fontana_trevi)-[:CERCA_DE {distancia_km: 1.2}]->(foro_romano);
+
+// Relaciones con Taj Mahal
+MATCH (taj_mahal:LugarTuristico {nombre: "Taj Mahal"}), 
+      (mehtab_bagh:LugarTuristico {nombre: "Mehtab Bagh"})
+CREATE (taj_mahal)-[:CERCA_DE {distancia_km: 1.5}]->(mehtab_bagh),
+       (mehtab_bagh)-[:CERCA_DE {distancia_km: 1.5}]->(taj_mahal);
+
+MATCH (taj_mahal:LugarTuristico {nombre: "Taj Mahal"}), 
+      (tumba_itimad:LugarTuristico {nombre: "Tumba de Itimad-ud-Daulah"})
+CREATE (taj_mahal)-[:CERCA_DE {distancia_km: 6}]->(tumba_itimad),
+       (tumba_itimad)-[:CERCA_DE {distancia_km: 6}]->(taj_mahal);
+
+// Conectar Mehtab Bagh con Fuerte Rojo (ya existente)
+MATCH (mehtab_bagh:LugarTuristico {nombre: "Mehtab Bagh"}), 
+      (fuerte_rojo:LugarTuristico {nombre: "Fuerte Rojo"})
+CREATE (mehtab_bagh)-[:CERCA_DE {distancia_km: 3}]->(fuerte_rojo),
+       (fuerte_rojo)-[:CERCA_DE {distancia_km: 3}]->(mehtab_bagh);
+
+// Relaciones con Torre Eiffel
+MATCH (torre_eiffel:LugarTuristico {nombre: "Torre Eiffel"}), 
+      (invalidos:LugarTuristico {nombre: "Los Inválidos"})
+CREATE (torre_eiffel)-[:CERCA_DE {distancia_km: 1.2}]->(invalidos),
+       (invalidos)-[:CERCA_DE {distancia_km: 1.2}]->(torre_eiffel);
+
+MATCH (torre_eiffel:LugarTuristico {nombre: "Torre Eiffel"}), 
+      (museo_orsay:LugarTuristico {nombre: "Museo de Orsay"})
+CREATE (torre_eiffel)-[:CERCA_DE {distancia_km: 1.8}]->(museo_orsay),
+       (museo_orsay)-[:CERCA_DE {distancia_km: 1.8}]->(torre_eiffel);
+
+// Conectar Los Inválidos con Louvre (ya existente)
+MATCH (invalidos:LugarTuristico {nombre: "Los Inválidos"}), 
+      (louvre:LugarTuristico {nombre: "Museo del Louvre"})
+CREATE (invalidos)-[:CERCA_DE {distancia_km: 2.5}]->(louvre),
+       (louvre)-[:CERCA_DE {distancia_km: 2.5}]->(invalidos);
+
+// Relaciones entre los nuevos lugares del mismo área
+MATCH (foro_romano:LugarTuristico {nombre: "Foro Romano"}), 
+      (palatino:LugarTuristico {nombre: "Monte Palatino"})
+CREATE (foro_romano)-[:CERCA_DE {distancia_km: 0.3}]->(palatino),
+       (palatino)-[:CERCA_DE {distancia_km: 0.3}]->(foro_romano);
+
+MATCH (valle_sagrado:LugarTuristico {nombre: "Valle Sagrado"}), 
+      (ollantaytambo:LugarTuristico {nombre: "Ollantaytambo"})
+CREATE (valle_sagrado)-[:CERCA_DE {distancia_km: 12}]->(ollantaytambo),
+       (ollantaytambo)-[:CERCA_DE {distancia_km: 12}]->(valle_sagrado);
+
+MATCH (templo_cielo:LugarTuristico {nombre: "Templo del Cielo"}), 
+      (palacio_verano:LugarTuristico {nombre: "Palacio de Verano"})
+CREATE (templo_cielo)-[:CERCA_DE {distancia_km: 15}]->(palacio_verano),
+       (palacio_verano)-[:CERCA_DE {distancia_km: 15}]->(templo_cielo);
+
+MATCH (invalidos:LugarTuristico {nombre: "Los Inválidos"}), 
+      (museo_orsay:LugarTuristico {nombre: "Museo de Orsay"})
+CREATE (invalidos)-[:CERCA_DE {distancia_km: 1.5}]->(museo_orsay),
+       (museo_orsay)-[:CERCA_DE {distancia_km: 1.5}]->(invalidos);
+
+MATCH (mehtab_bagh:LugarTuristico {nombre: "Mehtab Bagh"}), 
+      (tumba_itimad:LugarTuristico {nombre: "Tumba de Itimad-ud-Daulah"})
+CREATE (mehtab_bagh)-[:CERCA_DE {distancia_km: 7}]->(tumba_itimad),
+       (tumba_itimad)-[:CERCA_DE {distancia_km: 7}]->(mehtab_bagh);

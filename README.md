@@ -54,6 +54,7 @@ Esto levantará Neo4j en `http://localhost:7474` con:
 ├── cruce_recomendaciones.py        # Script principal de integración MongoDB–Neo4j
 ├── esquemaNeo4J.py                 # Carga todos los .txt con comandos Cypher en Neo4j
 ├── recomendaciones_con_distancia.csv  # Resultado del cruce
+├── tourism_dataset_500.csv         # Dataset para cargar en MongoDB
 └── /txt_cypher/                    # Archivos Cypher para poblar Neo4j
     ├── Neo4j.txt
     ├── Neo4j2.txt
